@@ -5,6 +5,7 @@ import com.ohgiraffers.security.common.AuthConstants;
 import com.ohgiraffers.security.common.utils.ConvertUtil;
 import com.ohgiraffers.security.common.utils.TokenUtils;
 import com.ohgiraffers.security.user.entity.User;
+import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,6 +24,7 @@ public class CustomAuthSuccessHandler extends SavedRequestAwareAuthenticationSuc
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
         User user = ((DetailsUser) authentication.getPrincipal()).getUser();
+//        System.out.println(user.getRole());
         JSONObject jsonValue = (JSONObject) ConvertUtil.convertObjectToJsonObject(user);
         HashMap<String, Object> responseMap = new HashMap<>();
         JSONObject jsonObject;
@@ -46,4 +48,5 @@ public class CustomAuthSuccessHandler extends SavedRequestAwareAuthenticationSuc
         printWriter.flush(); // stream의 값을 내보낸다
         printWriter.close(); // 비워준다
     }
+
 }

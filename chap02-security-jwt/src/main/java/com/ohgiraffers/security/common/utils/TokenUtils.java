@@ -19,12 +19,12 @@ public class TokenUtils {
     private static Long tokenValidateTime;
 
     @Value("${jwt.key}") // yml에 있는 값을 가져온다
-    public static void setJwtSecretKey(String jwtSecretKey) {
+    public void setJwtSecretKey(String jwtSecretKey) {
         TokenUtils.jwtSecretKey = jwtSecretKey;
     }
 
     @Value("${jwt.time}")
-    public static void setTokenValidateTime(Long tokenValidateTime) {
+    public void setTokenValidateTime(Long tokenValidateTime) {
         TokenUtils.tokenValidateTime = tokenValidateTime;
     }
 
@@ -118,7 +118,7 @@ public class TokenUtils {
 
         Map<String, Object> claims = new HashMap<>();
 
-        claims.put("userName", user.getUserName());
+        claims.put("userId", user.getUserId());
         claims.put("Role", user.getRole());
         claims.put("userEmail", user.getUserEmail());
 

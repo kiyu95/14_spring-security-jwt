@@ -33,7 +33,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException(password +"가 " + username + "의 password가 일치하지 않습니다.");
         }
 
-        return new UsernamePasswordAuthenticationToken(foundUser.getUsername(), foundUser.getPassword(), foundUser.getAuthorities()); // foundUser : 사용자 정보, password : 비밀번호, foundUser.getAuthorities() : 권한 목록
+        return new UsernamePasswordAuthenticationToken(foundUser, password, foundUser.getAuthorities()); // foundUser : 사용자 정보, password : 비밀번호, foundUser.getAuthorities() : 권한 목록
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.ohgiraffers.security.auth.config;
 
 import com.ohgiraffers.security.auth.filter.CustomAuthenticationFilter;
+import com.ohgiraffers.security.auth.filter.JwtAuthorizationFilter;
 import com.ohgiraffers.security.auth.handler.CustomAuthFailureHandler;
 import com.ohgiraffers.security.auth.handler.CustomAuthSuccessHandler;
 import com.ohgiraffers.security.auth.handler.CustomAuthenticationProvider;
@@ -97,8 +98,9 @@ public class WebSecurityConfig {
         authenticationFilter.setFilterProcessesUrl("/login"); // 어떤 요청 리소스를 가로채야 하는지 명시 -> /login
         authenticationFilter.setAuthenticationSuccessHandler(customAuthSuccessHandler());
         authenticationFilter.setAuthenticationFailureHandler(customAuthFailureHandler());
+        authenticationFilter.afterPropertiesSet();
 
-        return customAuthenticationFilter();
+        return authenticationFilter;
     }
 
     /**
@@ -119,6 +121,15 @@ public class WebSecurityConfig {
     public CustomAuthFailureHandler customAuthFailureHandler(){
 
         return new CustomAuthFailureHandler();
+    }
+
+    /**
+     * 9. 사용자 요청시 수행되는 메서드
+     * @return JwtAuthorizationFilter
+     * */
+    public JwtAuthorizationFilter jwtAuthorizationFilter(){
+
+        return new JwtAuthorizationFilter(authenticationManager()); // 커스텀 한 authenticationManager 넣어줌
     }
 
 }
